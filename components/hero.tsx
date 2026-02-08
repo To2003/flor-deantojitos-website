@@ -1,7 +1,8 @@
 "use client"
 
 import Image from "next/image"
-import { ArrowRight, Heart } from "lucide-react"
+import { ArrowRight } from "lucide-react"
+import { CustomCakeForm } from "./custom-cake-form"
 
 export function Hero() {
   return (
@@ -32,19 +33,19 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
+            
+            {/* Botón 1: El Formulario (La Estrella ⭐) */}
+            {/* Este componente ya trae su propio botón con estilo "Primary" */}
+            <CustomCakeForm />
+
+            {/* Botón 2: Ver Menú (Secundario / Outline) */}
             <a
               href="#productos"
-              className="flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-bold text-white shadow-lg transition-transform hover:scale-105 hover:bg-primary/90"
+              className="flex items-center gap-2 rounded-full border-2 border-primary/20 bg-transparent px-8 py-4 text-base font-bold text-primary transition-colors hover:bg-primary/5"
             >
               Ver el Menú <ArrowRight className="h-5 w-5" />
             </a>
-            <a
-              href="https://wa.me/5491100000000"
-              target="_blank"
-              className="rounded-full border-2 border-primary/20 bg-transparent px-8 py-4 text-base font-bold text-primary transition-colors hover:bg-primary/5"
-            >
-              Hacer pedido especial
-            </a>
+
           </div>
         </div>
 
@@ -53,7 +54,7 @@ export function Hero() {
             {/* Foto Principal (Grande) */}
             <div className="relative aspect-square w-full rotate-3 overflow-hidden rounded-[2rem] border-4 border-white shadow-2xl transition-transform hover:rotate-0">
               <Image
-                src="/images/hero-collage-1.jpg" // ¡PONER UNA FOTO DE UNA TORTA LINDA AQUÍ!
+                src="/images/hero-collage-1.jpg" // Asegurate de tener esta foto
                 alt="Lunchbox cake"
                 fill
                 className="object-cover"
@@ -64,7 +65,7 @@ export function Hero() {
             {/* Foto Flotante (Pequeña) */}
             <div className="absolute -bottom-6 -left-6 hidden md:block aspect-square w-40 -rotate-6 overflow-hidden rounded-[1.5rem] border-4 border-white shadow-xl animate-bounce duration-[3000ms]">
               <Image
-                 src="/images/hero-collage-2.jpg" // OTRA FOTO (ej: cupcakes)
+                 src="/images/hero-collage-2.jpg" // Asegurate de tener esta foto
                  alt="Cupcakes"
                  fill
                  className="object-cover"

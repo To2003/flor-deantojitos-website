@@ -11,8 +11,7 @@ import {
   SheetDescription,
 } from "@/components/ui/sheet"
 
-// ¡CAMBIAR POR EL NÚMERO REAL DE FLOR!
-const WHATSAPP_NUMBER = "5491100000000" 
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
 
 function buildWhatsAppMessage(
   items: { product: { name: string; price: number }; quantity: number }[],
