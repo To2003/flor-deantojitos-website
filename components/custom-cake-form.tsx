@@ -18,7 +18,8 @@ import { Textarea } from "@/components/ui/textarea"
 
 // --- DATOS DEL FORMULARIO ---
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
+// Usamos la variable de entorno (asegurate de haber hecho Redeploy en Vercel)
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5491100000000"
 
 const SIZES = [
   { id: "16cm", label: "16cm (10/12 porciones)" },
@@ -147,11 +148,13 @@ export function CustomCakeForm() {
                         {SIZES.map((s) => (
                         <div 
                             key={s.id} 
-                            onClick={() => setSize(s.label)} // Click en todo el div
-                            className={`cursor-pointer flex items-center space-x-3 border p-3 rounded-xl transition-all ${size === s.label ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}`}
+                            className={`relative flex items-center border p-3 rounded-xl transition-all ${size === s.label ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}`}
                         >
-                            <RadioGroupItem value={s.label} id={s.id} />
-                            <Label htmlFor={s.id} className="cursor-pointer font-medium text-gray-700 w-full">{s.label}</Label>
+                            <RadioGroupItem value={s.label} id={s.id} className="mr-3" />
+                            {/* Label absoluto para capturar el click en todo el box */}
+                            <Label htmlFor={s.id} className="cursor-pointer font-medium text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10">
+                                {s.label}
+                            </Label>
                         </div>
                         ))}
                     </RadioGroup>
@@ -167,11 +170,12 @@ export function CustomCakeForm() {
                         {SPONGES.map((s) => (
                         <div 
                             key={s} 
-                            onClick={() => setSponge(s)} // Click en todo el div
-                            className={`cursor-pointer flex items-center space-x-3 border p-3 rounded-xl transition-all ${sponge === s ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}`}
+                            className={`relative flex items-center border p-3 rounded-xl transition-all ${sponge === s ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}`}
                         >
-                            <RadioGroupItem value={s} id={s} />
-                            <Label htmlFor={s} className="cursor-pointer font-medium text-gray-700 w-full">{s}</Label>
+                            <RadioGroupItem value={s} id={s} className="mr-3" />
+                            <Label htmlFor={s} className="cursor-pointer font-medium text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10">
+                                {s}
+                            </Label>
                         </div>
                         ))}
                     </RadioGroup>
@@ -193,13 +197,12 @@ export function CustomCakeForm() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {FILLINGS.map((item) => {
                   const isSelected = fillings.includes(item);
-                  const isDisabled = !isSelected && fillings.length >= 2; // Deshabilitar si ya hay 2 y este no es uno de ellos
+                  const isDisabled = !isSelected && fillings.length >= 2;
 
                   return (
                   <div 
                     key={item} 
-                    onClick={() => !isDisabled && handleFillingChange(item)} // Solo click si no esta deshabilitado
-                    className={`cursor-pointer flex items-center space-x-3 border p-3 rounded-xl transition-all 
+                    className={`relative flex items-center border p-3 rounded-xl transition-all 
                         ${isSelected ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}
                         ${isDisabled ? 'opacity-50 cursor-not-allowed bg-gray-50' : ''}
                     `}
@@ -209,9 +212,15 @@ export function CustomCakeForm() {
                       checked={isSelected}
                       disabled={isDisabled}
                       onCheckedChange={() => handleFillingChange(item)}
-                      className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                      className="data-[state=checked]:bg-primary data-[state=checked]:border-primary mr-3"
                     />
-                    <Label htmlFor={item} className={`font-medium text-gray-700 w-full ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}>{item}</Label>
+                    {/* Label cubre todo. Si está disabled, quitamos pointer events para no permitir click */}
+                    <Label 
+                        htmlFor={item} 
+                        className={`font-medium text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10 ${isDisabled ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer'}`}
+                    >
+                        {item}
+                    </Label>
                   </div>
                 )})}
               </div>
@@ -228,11 +237,12 @@ export function CustomCakeForm() {
                         {COVERAGES.map((c) => (
                         <div 
                             key={c} 
-                            onClick={() => setCoverage(c)}
-                            className={`cursor-pointer flex items-center space-x-3 border p-3 rounded-xl transition-all ${coverage === c ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}`}
+                            className={`relative flex items-center border p-3 rounded-xl transition-all ${coverage === c ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}`}
                         >
-                            <RadioGroupItem value={c} id={c} />
-                            <Label htmlFor={c} className="cursor-pointer font-medium text-gray-700 w-full">{c}</Label>
+                            <RadioGroupItem value={c} id={c} className="mr-3" />
+                            <Label htmlFor={c} className="cursor-pointer font-medium text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10">
+                                {c}
+                            </Label>
                         </div>
                         ))}
                     </RadioGroup>
@@ -249,16 +259,17 @@ export function CustomCakeForm() {
                            return (
                             <div 
                                 key={item} 
-                                onClick={() => handleExtrasChange(item)}
-                                className={`cursor-pointer flex items-center space-x-3 border p-2 rounded-lg transition-all ${isSelected ? 'border-primary bg-primary/5' : 'hover:bg-gray-50 border-transparent'}`}
+                                className={`relative flex items-center border p-2 rounded-lg transition-all ${isSelected ? 'border-primary bg-primary/5' : 'hover:bg-gray-50 border-transparent'}`}
                             >
                                 <Checkbox 
                                 id={item} 
                                 checked={isSelected}
                                 onCheckedChange={() => handleExtrasChange(item)}
-                                className="data-[state=checked]:bg-primary"
+                                className="data-[state=checked]:bg-primary mr-3"
                                 />
-                                <Label htmlFor={item} className="cursor-pointer text-gray-700 w-full">{item}</Label>
+                                <Label htmlFor={item} className="cursor-pointer text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10">
+                                    {item}
+                                </Label>
                             </div>
                         )})}
                     </div>
