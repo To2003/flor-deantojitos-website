@@ -1,6 +1,9 @@
 "use client"
 
-import { Mail, Linkedin, Instagram, Github, Heart, Code2, Cookie } from "lucide-react"
+import { Mail, Linkedin, Instagram, Github, Heart, Code2, Cookie, MessageCircle } from "lucide-react"
+
+// Usamos el mismo número que en el resto de la web
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER 
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear();
@@ -37,7 +40,7 @@ export function SiteFooter() {
             </ul>
           </div>
 
-          {/* Columna 3: Contacto */}
+          {/* Columna 3: Contacto (CAMBIO AQUÍ: MAIL POR WHATSAPP) */}
           <div>
             <h4 className="text-sm font-bold uppercase tracking-wider text-primary mb-4">Hablemos</h4>
             <div className="flex flex-col gap-4">
@@ -47,11 +50,17 @@ export function SiteFooter() {
                 </span>
                 @flor.deantojitos
               </a>
-              <a href="mailto:flor.antojitos@gmail.com" className="group flex items-center gap-3 text-sm text-white/70 transition-all hover:text-white">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 group-hover:bg-primary transition-colors">
-                  <Mail className="h-5 w-5" />
+              
+              {/* Enlace de WhatsApp Nuevo */}
+              <a 
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hola!%20Tengo%20una%20consulta...`} 
+                target="_blank" 
+                className="group flex items-center gap-3 text-sm text-white/70 transition-all hover:text-white"
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 group-hover:bg-[#25D366] transition-colors">
+                  <MessageCircle className="h-5 w-5" />
                 </span>
-                Consultas por Email
+                Consultas por WhatsApp
               </a>
             </div>
           </div>
@@ -71,6 +80,9 @@ export function SiteFooter() {
                 </a>
                 <a href="https://www.linkedin.com/in/tomas-aguilar-dev" target="_blank" className="text-white/40 hover:text-primary transition-colors">
                   <Linkedin className="h-5 w-5" />
+                </a>
+                <a href="mailto:tomasaguilar.code@gmail.com" className="text-white/40 hover:text-primary transition-colors">
+                  <Mail className="h-5 w-5" />
                 </a>
               </div>
             </div>

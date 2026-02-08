@@ -19,7 +19,7 @@ import { Textarea } from "@/components/ui/textarea"
 // --- DATOS DEL FORMULARIO ---
 
 // Usamos la variable de entorno (asegurate de haber hecho Redeploy en Vercel)
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5491100000000"
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
 
 const SIZES = [
   { id: "16cm", label: "16cm (10/12 porciones)" },
