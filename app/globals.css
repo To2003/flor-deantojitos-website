@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 30 25% 97%;
+    --foreground: 20 20% 12%;
+    --card: 30 30% 95%;
+    --card-foreground: 20 20% 12%;
+    --popover: 30 25% 97%;
+    --popover-foreground: 20 20% 12%;
+    --primary: 15 65% 42%;
+    --primary-foreground: 30 25% 97%;
+    --secondary: 30 20% 90%;
+    --secondary-foreground: 20 20% 12%;
+    --muted: 30 15% 92%;
+    --muted-foreground: 20 10% 45%;
+    --accent: 35 80% 55%;
+    --accent-foreground: 20 20% 12%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 15% 85%;
+    --input: 30 15% 85%;
+    --ring: 15 65% 42%;
+    --chart-1: 15 65% 42%;
+    --chart-2: 35 80% 55%;
+    --chart-3: 20 20% 12%;
+    --chart-4: 30 30% 70%;
+    --chart-5: 30 20% 50%;
+    --radius: 0.75rem;
+    --sidebar-background: 30 25% 97%;
+    --sidebar-foreground: 20 20% 12%;
+    --sidebar-primary: 15 65% 42%;
+    --sidebar-primary-foreground: 30 25% 97%;
+    --sidebar-accent: 30 20% 90%;
+    --sidebar-accent-foreground: 20 20% 12%;
+    --sidebar-border: 30 15% 85%;
+    --sidebar-ring: 15 65% 42%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
