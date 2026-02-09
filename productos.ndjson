@@ -1,0 +1,47 @@
+{"_type": "category", "_id": "cat-petit", "name": "Petit Fours / Combos", "slug": { "_type": "slug", "current": "petit-fours" }}
+{"_type": "category", "_id": "cat-18", "name": "Tortas (18cm)", "slug": { "_type": "slug", "current": "tortas-18cm" }}
+{"_type": "category", "_id": "cat-20", "name": "Tortas (20cm)", "slug": { "_type": "slug", "current": "tortas-20cm" }}
+{"_type": "category", "_id": "cat-22", "name": "Tortas (22cm)", "slug": { "_type": "slug", "current": "tortas-22cm" }}
+
+{"_type": "product", "name": "Combo 1 (Clásico)", "price": 16000, "available": true, "category": {"_type": "reference", "_ref": "cat-petit"}, "description": "4 Brownies, 4 Lemon pie, 4 Rogel, 4 Toffi."}
+{"_type": "product", "name": "Combo 2 (Lemonies)", "price": 20000, "available": true, "category": {"_type": "reference", "_ref": "cat-petit"}, "description": "4 Brownies, 4 Lemonies, 4 Rogel, 4 Pavlova."}
+{"_type": "product", "name": "Combo 3 (Crumble)", "price": 16000, "available": true, "category": {"_type": "reference", "_ref": "cat-petit"}, "description": "4 Brownies, 4 Lemon pie, 4 Rogel, 4 Crumble."}
+{"_type": "product", "name": "Combo 4 (Coco)", "price": 20000, "available": true, "category": {"_type": "reference", "_ref": "cat-petit"}, "description": "4 Lemon pie, 4 Toffi, 4 Tarta de Coco, 4 Pavlova."}
+{"_type": "product", "name": "Combo 5 (Cheesecake)", "price": 20000, "available": true, "category": {"_type": "reference", "_ref": "cat-petit"}, "description": "4 Cheesecake, 4 Lemon pie, 4 Brownie, 4 Rogel."}
+
+{"_type": "product", "name": "Lemon Pie (18cm)", "price": 12000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Crumble de Manzana (18cm)", "price": 17000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Tarta de Ricota (18cm)", "price": 15000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Pastafrola (18cm)", "price": 15000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Cheesecake (18cm)", "price": 30000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Tiramisu (18cm)", "price": 37000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Chocotorta (18cm)", "price": 34500, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Doble Oreo (18cm)", "price": 52000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Rogel (18cm)", "price": 14000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Matilda (18cm)", "price": 36000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Brownie c/ Merengue (18cm)", "price": 21000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Brownie c/ Crema (18cm)", "price": 28000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Red Velvet (18cm)", "price": 32000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Carrot Cake (18cm)", "price": 28000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+{"_type": "product", "name": "Patagonia (18cm)", "price": 42000, "available": true, "category": {"_type": "reference", "_ref": "cat-18"}}
+
+{"_type": "product", "name": "Cheesecake (20cm)", "price": 42000, "available": true, "category": {"_type": "reference", "_ref": "cat-20"}}
+{"_type": "product", "name": "Tiramisu (20cm)", "price": 44500, "available": true, "category": {"_type": "reference", "_ref": "cat-20"}}
+{"_type": "product", "name": "Chocotorta (20cm)", "price": 45000, "available": true, "category": {"_type": "reference", "_ref": "cat-20"}}
+{"_type": "product", "name": "Doble Oreo (20cm)", "price": 64000, "available": true, "category": {"_type": "reference", "_ref": "cat-20"}}
+{"_type": "product", "name": "Matilda (20cm)", "price": 38000, "available": true, "category": {"_type": "reference", "_ref": "cat-20"}}
+{"_type": "product", "name": "Red Velvet (20cm)", "price": 39000, "available": true, "category": {"_type": "reference", "_ref": "cat-20"}}
+{"_type": "product", "name": "Carrot Cake (20cm)", "price": 31000, "available": true, "category": {"_type": "reference", "_ref": "cat-20"}}
+{"_type": "product", "name": "Patagonia (20cm)", "price": 45000, "available": true, "category": {"_type": "reference", "_ref": "cat-20"}}
+
+{"_type": "product", "name": "Lemon Pie (22cm)", "price": 18000, "available": true, "category": {"_type": "reference", "_ref": "cat-22"}}
+{"_type": "product", "name": "Crumble de Manzana (22cm)", "price": 22000, "available": true, "category": {"_type": "reference", "_ref": "cat-22"}}
+{"_type": "product", "name": "Tarta de Ricota (22cm)", "price": 22000, "available": true, "category": {"_type": "reference", "_ref": "cat-22"}}
+{"_type": "product", "name": "Pastafrola (22cm)", "price": 21000, "available": true, "category": {"_type": "reference", "_ref": "cat-22"}}
+{"_type": "product", "name": "Cheesecake (22cm)", "price": 55000, "available": true, "category": {"_type": "reference", "_ref": "cat-22"}}
+{"_type": "product", "name": "Rogel (22cm)", "price": 18000, "available": true, "category": {"_type": "reference", "_ref": "cat-22"}}
+{"_type": "product", "name": "Matilda (22cm)", "price": 47000, "available": true, "category": {"_type": "reference", "_ref": "cat-22"}}
+{"_type": "product", "name": "Brownie c/ Merengue (22cm)", "price": 30000, "available": true, "category": {"_type": "reference", "_ref": "cat-22"}}
+{"_type": "product", "name": "Brownie c/ Crema (22cm)", "price": 37000, "available": true, "category": {"_type": "reference", "_ref": "cat-22"}}
+{"_type": "product", "name": "Carrot Cake (22cm)", "price": 37000, "available": true, "category": {"_type": "reference", "_ref": "cat-22"}}
+{"_type": "product", "name": "Patagonia (22cm)", "price": 58000, "available": true, "category": {"_type": "reference", "_ref": "cat-22"}}

@@ -1,41 +1,48 @@
 "use client"
 
-import { Truck, Clock, Award, Heart } from "lucide-react"
+import { Truck, Clock, Award, CalendarClock } from "lucide-react"
 
 const features = [
   {
-    icon: Award,
-    title: "Ingredientes Premium",
-    description: "Solo usamos ingredientes de primera calidad",
+    icon: CalendarClock, // ÍCONO NUEVO E IMPORTANTE
+    title: "Planificalo con tiempo",
+    description: "Tomamos pedidos con 72 a 96hs de anticipación.",
   },
   {
-    icon: Clock,
-    title: "Preparado en el Dia",
-    description: "Todo se prepara fresco para tu pedido",
+    icon: Award,
+    title: "Ingredientes Premium",
+    description: "Solo usamos materia prima de primeras marcas.",
   },
   {
     icon: Truck,
     title: "Entregas y Retiros",
-    description: "Coordinamos la entrega que mas te convenga",
+    description: "Coordinamos el punto de retiro o envío.",
   },
   {
-    icon: Heart,
-    title: "Hecho con Amor",
-    description: "Cada detalle importa en nuestras creaciones",
+    icon: Clock,
+    title: "Fresco del día",
+    description: "Todo se prepara especialmente para tu pedido.",
   },
 ]
 
 export function FeaturesBanner() {
   return (
-    <section className="border-y border-border bg-card">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 py-12 md:grid-cols-4">
+    <section className="border-y border-border bg-card/50">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-16 md:grid-cols-2 lg:grid-cols-4">
         {features.map((f) => (
-          <div key={f.title} className="flex flex-col items-center text-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-              <f.icon className="h-5 w-5 text-primary" />
+          <div key={f.title} className="flex flex-col items-center text-center gap-4">
+            {/* Círculo más grande (h-16) e ícono más grande (h-8) */}
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 shadow-sm transition-transform hover:scale-110">
+              <f.icon className="h-8 w-8 text-primary" />
             </div>
-            <h3 className="text-sm font-semibold text-foreground">{f.title}</h3>
-            <p className="text-xs text-muted-foreground leading-relaxed">{f.description}</p>
+            
+            {/* Texto más grande: text-lg para título */}
+            <h3 className="text-lg font-bold text-foreground">{f.title}</h3>
+            
+            {/* Texto más legible: text-sm para descripción */}
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-[250px]">
+              {f.description}
+            </p>
           </div>
         ))}
       </div>

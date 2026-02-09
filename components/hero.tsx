@@ -54,7 +54,7 @@ export function Hero() {
             {/* Foto Principal (Grande) */}
             <div className="relative aspect-square w-full rotate-3 overflow-hidden rounded-[2rem] border-4 border-white shadow-2xl transition-transform hover:rotate-0">
               <Image
-                src="/images/hero-collage-1.jpg" // Asegurate de tener esta foto
+                src="/images/torta-personalizada-5.jpg" // Asegurate de tener esta foto
                 alt="Lunchbox cake"
                 fill
                 className="object-cover"
@@ -65,7 +65,7 @@ export function Hero() {
             {/* Foto Flotante (Pequeña) */}
             <div className="absolute -bottom-6 -left-6 hidden md:block aspect-square w-40 -rotate-6 overflow-hidden rounded-[1.5rem] border-4 border-white shadow-xl animate-bounce duration-[3000ms]">
               <Image
-                 src="/images/hero-collage-2.jpg" // Asegurate de tener esta foto
+                 src="/images/torta-personalizada-4.jpg" // Asegurate de tener esta foto
                  alt="Cupcakes"
                  fill
                  className="object-cover"

@@ -7,16 +7,16 @@ import { InstagramShare } from "@/components/instagram-share"
 import { PickupPoints } from "@/components/pickup-points"
 import { SiteFooter } from "@/components/site-footer"
 import { CartSidebar } from "@/components/cart-sidebar"
-import { client, urlFor } from "@/lib/sanity" 
-
+import { client, urlFor } from "@/lib/sanity"
+import { ReviewsSection } from "@/components/reviews-section" 
 
 async function getSanityProducts() {
-  const query = `*[_type == "product"] | order(_createdAt desc) {
+
+  const query = `*[_type == "product" && available == true] | order(_createdAt desc) {
     _id,
     name,
     price,
     description,
-    // La flecha -> significa "sigue el enlace y trae el dato 'name'"
     "category": category->name, 
     image,
     badge
@@ -25,12 +25,11 @@ async function getSanityProducts() {
   return await client.fetch(query, {}, { next: { revalidate: 10 } })
 }
 
-
 export default async function Page() {
   const rawProducts = await getSanityProducts()
 
   const products = rawProducts.map((p: any) => ({
-    id: p._id, // Mapeamos _id a id
+    id: p._id,
     name: p.name,
     price: p.price,
     description: p.description,
@@ -46,6 +45,9 @@ export default async function Page() {
         <Hero />
         <FeaturesBanner />
         <ProductCatalog products={products} />
+        
+        <ReviewsSection />
+        
         <InstagramShare />
         <PickupPoints />
       </main>

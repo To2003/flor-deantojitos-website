@@ -8,6 +8,13 @@ export const product = defineType({
   icon: ShoppingBag as any,
   fields: [
     defineField({
+      name: 'available',
+      title: '¿Está Disponible?',
+      description: 'Desactiva esto para ocultar el producto sin borrarlo.',
+      type: 'boolean',
+      initialValue: true, 
+    }),
+    defineField({
       name: 'name',
       title: 'Nombre del Producto',
       type: 'string',
