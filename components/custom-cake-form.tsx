@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { MessageCircle, Cake, AlertCircle } from "lucide-react"
+import { MessageCircle, Cake, AlertCircle, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -15,11 +15,10 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
+import { Input } from "@/components/ui/input"
 
 // --- DATOS DEL FORMULARIO ---
-
-// Usamos la variable de entorno (asegurate de haber hecho Redeploy en Vercel)
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5491100000000"
 
 const SIZES = [
   { id: "16cm", label: "16cm (10/12 porciones)" },
@@ -27,40 +26,10 @@ const SIZES = [
   { id: "20cm", label: "20cm (20/25 porciones)" },
   { id: "22cm", label: "22cm (30 porciones)" },
 ]
-
-const SPONGES = [
-  "Vainilla",
-  "Chocolate",
-  "Vainilla con chips",
-  "Marmolado",
-]
-
-const FILLINGS = [
-  "Dulce de leche (clásico)",
-  "Dulce de leche con merengue",
-  "Dulce de leche con frutos secos",
-  "Ganache de Choco Negro",
-  "Ganache de Choco Blanco",
-  "Crema Bariloche",
-  "Chocotorta",
-  "Crema con Frutas (Estación)",
-  "Crema con Cookies",
-  "Crema de Café",
-]
-
-const COVERAGES = [
-  "Buttercream",
-  "Pasta Ballina (Fondant)",
-  "Ganache",
-]
-
-const EXTRAS = [
-  "Glitter Comestible",
-  "Moños",
-  "Figuras / Muñecos",
-  "Perlas",
-  "Flores Naturales",
-]
+const SPONGES = ["Vainilla", "Chocolate", "Vainilla con chips", "Marmolado"]
+const FILLINGS = ["Dulce de leche (clásico)", "Dulce de leche con merengue", "Dulce de leche con frutos secos", "Ganache de Choco Negro", "Ganache de Choco Blanco", "Crema Bariloche", "Chocotorta", "Crema con Frutas (Estación)", "Crema con Cookies", "Crema de Café"]
+const COVERAGES = ["Buttercream", "Pasta Ballina (Fondant)", "Ganache"]
+const EXTRAS = ["Glitter Comestible", "Moños", "Figuras / Muñecos", "Perlas", "Flores Naturales"]
 
 export function CustomCakeForm() {
   const [size, setSize] = useState("")
@@ -69,25 +38,26 @@ export function CustomCakeForm() {
   const [coverage, setCoverage] = useState("")
   const [extras, setExtras] = useState<string[]>([])
   const [notes, setNotes] = useState("")
+  const [date, setDate] = useState("")
   const [open, setOpen] = useState(false) 
 
-  // Validar si el formulario está completo
-  const isFormValid = size !== "" && sponge !== "" && fillings.length > 0 && coverage !== ""
+  // Lógica para calcular la fecha mínima (Hoy + 4 días)
+  const minDateObj = new Date()
+  minDateObj.setDate(minDateObj.getDate() + 2)
+  const minDateString = minDateObj.toISOString().split("T")[0]
 
-  // Lógica para limitar rellenos a 2
+  const isFormValid = size !== "" && sponge !== "" && fillings.length > 0 && coverage !== "" && date !== ""
+
   const handleFillingChange = (item: string) => {
     if (fillings.includes(item)) {
-      // Si ya está, lo sacamos
       setFillings(fillings.filter((i) => i !== item))
     } else {
-      // Si no está, verificamos que no haya 2 ya seleccionados
       if (fillings.length < 2) {
         setFillings([...fillings, item])
       }
     }
   }
 
-  // Lógica genérica para extras (sin limite)
   const handleExtrasChange = (item: string) => {
     if (extras.includes(item)) {
       setExtras(extras.filter((i) => i !== item))
@@ -97,8 +67,11 @@ export function CustomCakeForm() {
   }
 
   const handleSendWhatsapp = () => {
-    // Usamos encodeURIComponent para asegurar que los emojis viajen bien
+    const formattedDate = date.split("-").reverse().join("/")
+
     const text = `Hola Flor! 🌸 Quiero pedir presupuesto por una torta personalizada:
+
+📅 *Fecha del evento:* ${formattedDate}
 
 🎂 *Tamaño:* ${size}
 🍰 *Bizcochuelo:* ${sponge}
@@ -125,7 +98,6 @@ export function CustomCakeForm() {
       </DialogTrigger>
       
       <DialogContent className="sm:max-w-[500px] md:max-w-[700px] bg-white w-[95vw] max-h-[85vh] flex flex-col p-0 gap-0 overflow-hidden rounded-2xl">
-        
         <DialogHeader className="p-6 pb-4 border-b bg-secondary/10">
           <DialogTitle className="text-2xl font-black text-primary font-serif flex items-center gap-2">
             <span className="bg-primary/10 p-2 rounded-full">🍰</span> Diseña tu Torta
@@ -137,6 +109,22 @@ export function CustomCakeForm() {
 
         <div className="flex-1 overflow-y-auto p-6 space-y-8">
             
+            {/* 0. FECHA */}
+            <div className="space-y-3 p-4 bg-secondary/10 rounded-xl border border-secondary/20">
+              <Label className="text-base font-bold text-primary flex items-center gap-2">
+                 <Calendar className="h-5 w-5" />
+                 ¿Para cuándo la necesitas? *
+              </Label>
+              <Input 
+                type="date" 
+                value={date}
+                min={minDateString} // 🔥 ACÁ APLICAMOS EL BLOQUEO DE LOS 4 DÍAS
+                onChange={(e) => setDate(e.target.value)}
+                className="bg-white border-primary/20 text-lg p-4 h-12"
+              />
+              <p className="text-xs text-muted-foreground">Las tortas personalizadas requieren 72/96hs de anticipación mínima.</p>
+            </div>
+
             {/* 1. TAMAÑO */}
             <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-3">
@@ -146,15 +134,9 @@ export function CustomCakeForm() {
                     </Label>
                     <RadioGroup value={size} onValueChange={setSize} className="space-y-2">
                         {SIZES.map((s) => (
-                        <div 
-                            key={s.id} 
-                            className={`relative flex items-center border p-3 rounded-xl transition-all ${size === s.label ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}`}
-                        >
+                        <div key={s.id} className={`relative flex items-center border p-3 rounded-xl transition-all ${size === s.label ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}`}>
                             <RadioGroupItem value={s.label} id={s.id} className="mr-3" />
-                            {/* Label absoluto para capturar el click en todo el box */}
-                            <Label htmlFor={s.id} className="cursor-pointer font-medium text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10">
-                                {s.label}
-                            </Label>
+                            <Label htmlFor={s.id} className="cursor-pointer font-medium text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10">{s.label}</Label>
                         </div>
                         ))}
                     </RadioGroup>
@@ -168,14 +150,9 @@ export function CustomCakeForm() {
                     </Label>
                     <RadioGroup value={sponge} onValueChange={setSponge} className="space-y-2">
                         {SPONGES.map((s) => (
-                        <div 
-                            key={s} 
-                            className={`relative flex items-center border p-3 rounded-xl transition-all ${sponge === s ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}`}
-                        >
+                        <div key={s} className={`relative flex items-center border p-3 rounded-xl transition-all ${sponge === s ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}`}>
                             <RadioGroupItem value={s} id={s} className="mr-3" />
-                            <Label htmlFor={s} className="cursor-pointer font-medium text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10">
-                                {s}
-                            </Label>
+                            <Label htmlFor={s} className="cursor-pointer font-medium text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10">{s}</Label>
                         </div>
                         ))}
                     </RadioGroup>
@@ -189,38 +166,16 @@ export function CustomCakeForm() {
                     <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs text-white">3</span>
                     Rellenos (Máx 2) *
                 </Label>
-                <span className="text-xs font-medium text-muted-foreground bg-secondary/20 px-2 py-1 rounded-full">
-                    {fillings.length}/2 seleccionados
-                </span>
+                <span className="text-xs font-medium text-muted-foreground bg-secondary/20 px-2 py-1 rounded-full">{fillings.length}/2 seleccionados</span>
               </div>
-              
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {FILLINGS.map((item) => {
                   const isSelected = fillings.includes(item);
                   const isDisabled = !isSelected && fillings.length >= 2;
-
                   return (
-                  <div 
-                    key={item} 
-                    className={`relative flex items-center border p-3 rounded-xl transition-all 
-                        ${isSelected ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}
-                        ${isDisabled ? 'opacity-50 cursor-not-allowed bg-gray-50' : ''}
-                    `}
-                  >
-                    <Checkbox 
-                      id={item} 
-                      checked={isSelected}
-                      disabled={isDisabled}
-                      onCheckedChange={() => handleFillingChange(item)}
-                      className="data-[state=checked]:bg-primary data-[state=checked]:border-primary mr-3"
-                    />
-                    {/* Label cubre todo. Si está disabled, quitamos pointer events para no permitir click */}
-                    <Label 
-                        htmlFor={item} 
-                        className={`font-medium text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10 ${isDisabled ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer'}`}
-                    >
-                        {item}
-                    </Label>
+                  <div key={item} className={`relative flex items-center border p-3 rounded-xl transition-all ${isSelected ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'} ${isDisabled ? 'opacity-50 cursor-not-allowed bg-gray-50' : ''}`}>
+                    <Checkbox id={item} checked={isSelected} disabled={isDisabled} onCheckedChange={() => handleFillingChange(item)} className="data-[state=checked]:bg-primary data-[state=checked]:border-primary mr-3" />
+                    <Label htmlFor={item} className={`font-medium text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10 ${isDisabled ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer'}`}>{item}</Label>
                   </div>
                 )})}
               </div>
@@ -235,41 +190,25 @@ export function CustomCakeForm() {
                     </Label>
                     <RadioGroup value={coverage} onValueChange={setCoverage} className="space-y-2">
                         {COVERAGES.map((c) => (
-                        <div 
-                            key={c} 
-                            className={`relative flex items-center border p-3 rounded-xl transition-all ${coverage === c ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}`}
-                        >
+                        <div key={c} className={`relative flex items-center border p-3 rounded-xl transition-all ${coverage === c ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'hover:bg-gray-50 border-gray-200'}`}>
                             <RadioGroupItem value={c} id={c} className="mr-3" />
-                            <Label htmlFor={c} className="cursor-pointer font-medium text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10">
-                                {c}
-                            </Label>
+                            <Label htmlFor={c} className="cursor-pointer font-medium text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10">{c}</Label>
                         </div>
                         ))}
                     </RadioGroup>
                 </div>
-
                 <div className="space-y-3">
                     <Label className="text-base font-bold text-primary flex items-center gap-2">
                         <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs text-white">5</span>
-                        Extras (Opcional)
+                        Extras
                     </Label>
                     <div className="space-y-2">
                         {EXTRAS.map((item) => {
                            const isSelected = extras.includes(item);
                            return (
-                            <div 
-                                key={item} 
-                                className={`relative flex items-center border p-2 rounded-lg transition-all ${isSelected ? 'border-primary bg-primary/5' : 'hover:bg-gray-50 border-transparent'}`}
-                            >
-                                <Checkbox 
-                                id={item} 
-                                checked={isSelected}
-                                onCheckedChange={() => handleExtrasChange(item)}
-                                className="data-[state=checked]:bg-primary mr-3"
-                                />
-                                <Label htmlFor={item} className="cursor-pointer text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10">
-                                    {item}
-                                </Label>
+                            <div key={item} className={`relative flex items-center border p-2 rounded-lg transition-all ${isSelected ? 'border-primary bg-primary/5' : 'hover:bg-gray-50 border-transparent'}`}>
+                                <Checkbox id={item} checked={isSelected} onCheckedChange={() => handleExtrasChange(item)} className="data-[state=checked]:bg-primary mr-3" />
+                                <Label htmlFor={item} className="cursor-pointer text-gray-700 w-full h-full flex items-center absolute inset-0 pl-10 z-10">{item}</Label>
                             </div>
                         )})}
                     </div>
@@ -282,43 +221,20 @@ export function CustomCakeForm() {
                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs text-white">6</span>
                  Detalles / Temática
               </Label>
-              <Textarea 
-                id="notes" 
-                className="resize-none border-2 focus-visible:ring-primary min-h-[100px]"
-                placeholder="Ej: Es para un cumple de 15, temática Harry Potter. Colores dorados..." 
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-              />
+              <Textarea id="notes" className="resize-none border-2 focus-visible:ring-primary min-h-[100px]" placeholder="Ej: Es para un cumple de 15, temática Harry Potter. Colores dorados..." value={notes} onChange={(e) => setNotes(e.target.value)} />
             </div>
-
         </div>
         
-        {/* Footer Fijo con validación */}
+        {/* Footer Fijo */}
         <div className="p-6 border-t bg-gray-50 mt-auto">
-          <Button 
-            onClick={handleSendWhatsapp} 
-            disabled={!isFormValid} // Se deshabilita si no está válido
-            className={`w-full font-bold text-lg h-14 rounded-xl shadow-md transition-all
-                ${isFormValid 
-                    ? 'bg-[#25D366] hover:bg-[#128C7E] text-white hover:scale-[1.01]' 
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                }
-            `}
-          >
+          <Button onClick={handleSendWhatsapp} disabled={!isFormValid} className={`w-full font-bold text-lg h-14 rounded-xl shadow-md transition-all ${isFormValid ? 'bg-[#25D366] hover:bg-[#128C7E] text-white hover:scale-[1.01]' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}>
             {isFormValid ? (
-                <>
-                 <MessageCircle className="mr-2 h-6 w-6" />
-                 Pedir Presupuesto por WhatsApp
-                </>
+                <> <MessageCircle className="mr-2 h-6 w-6" /> Pedir Presupuesto por WhatsApp </>
             ) : (
-                <>
-                 <AlertCircle className="mr-2 h-5 w-5" />
-                 Completa los pasos para continuar
-                </>
+                <> <AlertCircle className="mr-2 h-5 w-5" /> Completa la fecha y opciones </>
             )}
           </Button>
         </div>
-
       </DialogContent>
     </Dialog>
   )
