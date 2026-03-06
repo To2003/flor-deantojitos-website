@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import { CustomCakeForm } from "./custom-cake-form"
+import { CustomCookieForm } from "./custom-cookie-form" // 👈 1. Importamos el nuevo formulario
 
 export function Hero() {
   return (
@@ -32,21 +33,28 @@ export function Hero() {
             Personalizamos cada detalle para vos. 💖
           </p>
 
+          {/* 👇 2. Contenedor de los botones principales */}
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
             
-            {/* Botón 1: El Formulario (La Estrella ⭐) */}
-            {/* Este componente ya trae su propio botón con estilo "Primary" */}
+            {/* Botón 1: Tortas Personalizadas */}
             <CustomCakeForm />
 
-            {/* Botón 2: Ver Menú (Secundario / Outline) */}
-            <a
-              href="#productos"
-              className="flex items-center gap-2 rounded-full border-2 border-primary/20 bg-transparent px-8 py-4 text-base font-bold text-primary transition-colors hover:bg-primary/5"
-            >
-              Ver el Menú <ArrowRight className="h-5 w-5" />
-            </a>
+            {/* Botón 2: Cookies Personalizadas */}
+            <CustomCookieForm />
 
           </div>
+
+          {/* 👇 3. Enlace secundario al menú clásico (Más sutil y elegante) */}
+          <div className="mt-6 text-center lg:text-left">
+            <a
+              href="#productos"
+              className="inline-flex items-center gap-2 text-base font-bold text-foreground/60 transition-colors hover:text-primary underline decoration-dotted underline-offset-4"
+            >
+              O mirá nuestro menú clásico con entrega rápida
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+
         </div>
 
         {/* Columna Derecha: Collage de Fotos (Estilo Instagram) */}
