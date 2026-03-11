@@ -1,6 +1,6 @@
 "use client"
 
-import { Mail, Linkedin, Instagram, Github, Heart, Code2, Cookie, MessageCircle } from "lucide-react"
+import { Mail, Linkedin, Instagram, Github, Heart, Code2, Cookie, MessageCircle, Globe } from "lucide-react"
 
 // Usamos el mismo número que en el resto de la web
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER 
@@ -81,8 +81,14 @@ export function SiteFooter() {
                 <a href="https://www.linkedin.com/in/tomas-aguilar-dev" target="_blank" className="text-white/40 hover:text-primary transition-colors">
                   <Linkedin className="h-5 w-5" />
                 </a>
-                <a href="mailto:tomasaguilar.code@gmail.com" className="text-white/40 hover:text-primary transition-colors">
-                  <Mail className="h-5 w-5" />
+                <a 
+                href="https://tomas-aguilar-portolio.vercel.app" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/40 hover:text-primary transition-colors"
+                title="Portfolio"
+                >
+                  <Globe size={18} />
                 </a>
               </div>
             </div>
